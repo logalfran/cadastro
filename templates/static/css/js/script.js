@@ -6,12 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = form.email.value.trim();
         const password = form.password.value.trim();
 
-        const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        function validarEmailSimples(email) {
+            if (!email) return false;
+            if (email.indexOf(' ') !== -1) return false; 
+            const atIndex = email.indexOf('@');
+            if (atIndex === -1) return false; 
+            const dotIndex = email.indexOf('.', atIndex);
+            if (dotIndex === -1) return false; 
+            if (dotIndex === email.length -1) return false; 
+            return true;
+        }
 
         if (!username || !email || !password) {
             alert('Todos os campos são obrigatórios.');
             e.preventDefault();
-        } else if (!emailValido.test(email)) {
+        } else if (!validarEmailSimples(email)) {
             alert('Email inválido.');
             e.preventDefault();
         }
